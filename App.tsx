@@ -1,44 +1,107 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+// Main App Component - Navigation setup
+import React from 'react';
+import { NavigationContainer, Theme } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { StyleSheet } from 'react-native';
+import { AppProvider } from './src/context/AppContext';
+import HomeScreen from './src/screens/HomeScreen';
+import FolderScreen from './src/screens/FolderScreen';
+import SettingsScreen from './src/screens/SettingsScreen';
+import AboutScreen from './src/screens/AboutScreen';
+import PrivacyPolicyScreen from './src/screens/PrivacyPolicyScreen';
+import { colors } from './src/theme/colors';
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+export type RootStackParamList = {
+  Home: undefined;
+  Folder: { folder: any };
+  Settings: undefined;
+  About: undefined;
+  PrivacyPolicy: undefined;
+};
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+const Stack = createStackNavigator<RootStackParamList>();
 
+const theme: Theme = {
+  dark: false,
+  colors: {
+    primary: colors.primary,
+    background: colors.background,
+    card: colors.card,
+    text: colors.text,
+    border: colors.border,
+    notification: colors.primary,
+  },
+  fonts: {
+    regular: {
+      fontFamily: 'System',
+      fontWeight: '400',
+    },
+    medium: {
+      fontFamily: 'System',
+      fontWeight: '500',
+    },
+    bold: {
+      fontFamily: 'System',
+      fontWeight: '700',
+    },
+    heavy: {
+      fontFamily: 'System',
+      fontWeight: '900',
+    },
+  },
+};
+
+const App = () => {
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={styles.container}>
+      <AppProvider>
+        <NavigationContainer theme={theme}>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+              cardStyle: { backgroundColor: colors.background },
+            }}>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen
+              name="Folder"
+              component={FolderScreen}
+              options={{
+                presentation: 'card',
+              }}
+            />
+            <Stack.Screen
+              name="Settings"
+              component={SettingsScreen}
+              options={{
+                presentation: 'card',
+              }}
+            />
+            <Stack.Screen
+              name="About"
+              component={AboutScreen}
+              options={{
+                presentation: 'card',
+              }}
+            />
+            <Stack.Screen
+              name="PrivacyPolicy"
+              component={PrivacyPolicyScreen}
+              options={{
+                presentation: 'card',
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AppProvider>
+    </GestureHandlerRootView>
   );
-}
-
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
-  );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.background,
   },
 });
 

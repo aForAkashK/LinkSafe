@@ -1,97 +1,256 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 🔗 LinkSafe
 
-# Getting Started
+<p align="center">
+  <img src="docs/icon.png" alt="LinkSafe Logo" width="120" height="120">
+</p>
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+<p align="center">
+  <strong>Your Personal Link Vault</strong><br>
+  Securely save, organize, and access your important links on iOS and Android
+</p>
 
-## Step 1: Start Metro
+<p align="center">
+  <img src="https://img.shields.io/badge/React%20Native-0.83-blue?logo=react" alt="React Native">
+  <img src="https://img.shields.io/badge/TypeScript-5.8-blue?logo=typescript" alt="TypeScript">
+  <img src="https://img.shields.io/badge/Platform-iOS%20%7C%20Android-lightgrey" alt="Platform">
+  <img src="https://img.shields.io/badge/License-MIT-green" alt="License">
+</p>
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+---
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## ✨ Features
 
-```sh
-# Using npm
-npm start
+### 📁 **Folder Organization**
+- Create custom folders to categorize your links
+- Choose from 20+ folder icons and 8 beautiful colors
+- Nested organization for better link management
 
-# OR using Yarn
-yarn start
+### 🔐 **Privacy & Security**
+- **Encrypted Storage** - All data stored with AES-256 encryption
+- **Password Protection** - Lock individual folders or links
+- **Biometric Support** - Unlock with Face ID / Touch ID (coming soon)
+- **No Cloud Sync** - Your data stays on your device
+
+### 🔗 **Link Management**
+- Save any URL with title and description
+- Automatic favicon fetching
+- Link preview with Open Graph images
+- Copy links to clipboard with one tap
+- Open links in your default browser
+
+### 📤 **Share Extension** (iOS & Android)
+- Share links directly from Safari, Chrome, or any app
+- **iOS**: Native Share Extension with queue system
+- **Android**: Share Intent support
+- Automatic duplicate detection
+
+### 🎨 **Beautiful UI**
+- Modern dark theme with gradient accents
+- Smooth animations and transitions
+- Card-based design with glassmorphism effects
+- Custom icons using Material Community Icons
+
+---
+
+## 📱 Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/home.png" alt="Home Screen" width="200">
+  <img src="docs/screenshots/folders.png" alt="Folders" width="200">
+  <img src="docs/screenshots/add-link.png" alt="Add Link" width="200">
+  <img src="docs/screenshots/share.png" alt="Share Extension" width="200">
+</p>
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js >= 20
+- npm or yarn
+- Xcode 14+ (for iOS)
+- Android Studio (for Android)
+- CocoaPods (for iOS)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/LinkSafe.git
+   cd LinkSafe
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **iOS Setup**
+   ```bash
+   cd ios
+   pod install
+   cd ..
+   ```
+
+4. **Run the app**
+   ```bash
+   # Start Metro bundler
+   npm start
+
+   # Run on iOS
+   npm run ios
+
+   # Run on Android
+   npm run android
+   ```
+
+---
+
+## 🏗️ Project Structure
+
+```
+LinkSafe/
+├── src/
+│   ├── components/          # Reusable UI components
+│   │   ├── AddEditModal.tsx    # Add/Edit link & folder modal
+│   │   ├── LinkCard.tsx        # Link display card
+│   │   ├── FolderCard.tsx      # Folder display card
+│   │   ├── PasswordModal.tsx   # Password unlock modal
+│   │   └── EmptyState.tsx      # Empty state placeholder
+│   ├── screens/             # App screens
+│   │   ├── HomeScreen.tsx      # Main screen with links & folders
+│   │   └── FolderScreen.tsx    # Folder contents screen
+│   ├── context/             # React Context providers
+│   │   └── AppContext.tsx      # Global state management
+│   ├── theme/               # Styling
+│   │   └── index.ts            # Colors, fonts, spacing
+│   └── utils/               # Utility functions
+│       ├── storage.ts          # Encrypted storage operations
+│       ├── encryption.ts       # AES encryption helpers
+│       ├── constants.ts        # App constants
+│       ├── linkPreview.ts      # Link metadata fetching
+│       └── shareIntent.ts      # Share intent URL extraction
+├── android/                 # Android native code
+│   └── app/src/main/java/com/linksafe/
+│       ├── MainActivity.kt        # Android entry point
+│       ├── ShareIntentModule.kt   # Share intent handler
+│       └── ShareIntentPackage.kt  # Native module package
+├── ios/                     # iOS native code
+│   ├── LinkSafe/
+│   │   ├── AppDelegate.swift      # iOS entry point
+│   │   ├── ShareIntentModule.swift # Share intent handler
+│   │   └── ShareIntentModule.m    # Obj-C bridge
+│   └── ShareExtension/           # iOS Share Extension
+│       ├── ShareViewController.swift
+│       └── Info.plist
+└── App.tsx                  # Root component
 ```
 
-## Step 2: Build and run your app
+---
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+## 🔧 Technical Details
 
-### Android
+### Storage Architecture
 
-```sh
-# Using npm
-npm run android
+LinkSafe uses a multi-layer encryption approach:
 
-# OR using Yarn
-yarn android
+```
+┌─────────────────────────────────────┐
+│         React Native App            │
+├─────────────────────────────────────┤
+│    react-native-encrypted-storage   │
+├─────────────────────────────────────┤
+│      AES-256 Encryption Layer       │
+├─────────────────────────────────────┤
+│   iOS: Keychain | Android: Keystore │
+└─────────────────────────────────────┘
 ```
 
-### iOS
+### Share Extension Flow (iOS)
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+```
+Safari/Chrome → Share Extension → App Groups → Main App → Encrypted Storage
+     │                │                │           │
+     │                ▼                │           │
+     │         Queue System            │           │
+     │         (Multiple URLs)         │           │
+     │                │                │           │
+     └────────────────┴────────────────┴───────────┘
 ```
 
-Then, and every time you update your native dependencies, run:
+### Key Dependencies
 
-```sh
-bundle exec pod install
-```
+| Package | Purpose |
+|---------|---------|
+| `react-native-encrypted-storage` | Secure encrypted storage |
+| `crypto-js` | AES encryption |
+| `@react-navigation/stack` | Stack navigation |
+| `react-native-vector-icons` | Material icons |
+| `uuid` | Unique ID generation |
+| `@react-native-clipboard/clipboard` | Clipboard access |
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+---
 
-```sh
-# Using npm
-npm run ios
+## 🛡️ Privacy
 
-# OR using Yarn
-yarn ios
-```
+LinkSafe is designed with privacy as a core principle:
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+- **100% Offline** - No internet required, no data sent to servers
+- **No Analytics** - No tracking, no telemetry
+- **No Ads** - Completely ad-free
+- **Open Source** - Fully auditable code
+- **Local Encryption** - All data encrypted on device
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+---
 
-## Step 3: Modify your app
+## 📝 Changelog
 
-Now that you have successfully run the app, let's make changes!
+### Version 1.0.0 (January 2026)
+- 🎉 Initial release
+- ✅ Folder organization with icons and colors
+- ✅ Link saving with previews
+- ✅ Password protection
+- ✅ iOS Share Extension
+- ✅ Android Share Intent
+- ✅ Dark theme UI
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+---
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## 🤝 Contributing
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details.
 
-## Congratulations! :tada:
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-You've successfully run and modified your React Native App. :partying_face:
+---
 
-### Now what?
+## 📄 License
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-# Troubleshooting
+---
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+## 👨‍💻 Author
 
-# Learn More
+**Akash Kumar**
 
-To learn more about React Native, take a look at the following resources:
+- GitHub: [@akashkumar](https://github.com/akashkumar)
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+---
+
+## 🙏 Acknowledgments
+
+- [React Native](https://reactnative.dev/) - The framework
+- [Material Community Icons](https://materialdesignicons.com/) - Beautiful icons
+- [React Navigation](https://reactnavigation.org/) - Navigation library
+
+---
+
+<p align="center">
+  Made with ❤️ using React Native
+</p>
