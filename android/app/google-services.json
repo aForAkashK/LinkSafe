@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "36474433053",
+    "project_id": "linksafe-c88be",
+    "storage_bucket": "linksafe-c88be.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:36474433053:android:a3a8055bbfe87dd7dfa0f4",
+        "android_client_info": {
+          "package_name": "com.linksafe"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDiJg-JSZgJk3UCi0OD5nU86sGlHnmc44"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

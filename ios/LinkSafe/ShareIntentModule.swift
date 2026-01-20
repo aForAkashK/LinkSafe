@@ -5,7 +5,7 @@ import React
 class ShareIntentModule: NSObject {
   
   // App Group identifier - must match the one configured in both targets
-  static let appGroupIdentifier = "group.com.linksafe.shared"
+  static let appGroupIdentifier = "group.com.akashkumar.linksafe.shared"
   static let pendingLinksKey = "PendingLinks"
   
   /// Returns all pending links as a JSON array string, then clears them

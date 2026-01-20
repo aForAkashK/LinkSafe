@@ -11,7 +11,7 @@ import UniformTypeIdentifiers
 class ShareViewController: UIViewController {
     
     // App Group identifier - must match the main app
-    let appGroupIdentifier = "group.com.linksafe.shared"
+    let appGroupIdentifier = "group.com.akashkumar.linksafe.shared"
     let pendingLinksKey = "PendingLinks"
     
     private var sharedURL: String = ""

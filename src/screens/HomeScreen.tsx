@@ -23,6 +23,7 @@ import AddEditModal from '../components/AddEditModal';
 import PasswordModal from '../components/PasswordModal';
 import ActionModal from '../components/ActionModal';
 import ConfirmModal from '../components/ConfirmModal';
+import { getCrashlytics } from '@react-native-firebase/crashlytics';
 
 const { width } = Dimensions.get('window');
 
@@ -397,6 +398,13 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 danger
                 icon="delete-alert-outline"
             />
+
+            <TouchableOpacity
+                style={styles.fab}
+                onPress={() => getCrashlytics().crash()}
+                activeOpacity={0.9}>
+                <Text style={{}}>Crash</Text>
+            </TouchableOpacity>
         </View>
     );
 };
